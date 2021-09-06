@@ -20,16 +20,20 @@ public class IngredientService {
     public Ingredient getIngredientById(Long id) {
         Optional<Ingredient> IngredientById = ingredientRepository.findById(id);
         if (IngredientById.isEmpty()) {
-            throw new RuntimeException("There is no book with this id in the database");
+            throw new RuntimeException("There is no ingredient with this id in the database");
         }
         return IngredientById.get();
     }
 
-    public Ingredient addOrUpdateIngredient(Ingredient ingredient) {
-        if (ingredient.getId()!=null) {
+    public Ingredient addIngredient(Ingredient ingredient) {
+        if (ingredient.getId() != null) {
             throw new RuntimeException("No ids allowed in this request");
         }
+        ingredientRepository.save(ingredient);
+        return ingredient;
+    }
 
+    public Ingredient updateIngredient(Ingredient ingredient) {
         ingredientRepository.save(ingredient);
         return ingredient;
     }

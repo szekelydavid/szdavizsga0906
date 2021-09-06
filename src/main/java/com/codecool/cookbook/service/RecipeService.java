@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -30,10 +29,15 @@ public class RecipeService {
         return RecipeById.get();
     }
 
-    public Recipe addOrUpdateRecipe(Recipe recipe) {
-        if (recipe.getId()!=null) {
+    public Recipe addRecipe(Recipe recipe) {
+        if (recipe.getId() != null) {
             throw new RuntimeException("No ids allowed in this request");
         }
+        recipeRepository.save(recipe);
+        return recipe;
+    }
+
+    public Recipe updateRecipe(Recipe recipe) {
         recipeRepository.save(recipe);
         return recipe;
     }
@@ -44,16 +48,15 @@ public class RecipeService {
 
     public List<Recipe> getVegetarianRecipes() {
 
-        List<Recipe> recipesList =  getAllRecipes();
-        ArrayList<Recipe> recipesReturnList= new ArrayList<Recipe>();
-        for(Recipe r : recipesList){
+        List<Recipe> recipesList = getAllRecipes();
+        ArrayList<Recipe> recipesReturnList = new ArrayList<Recipe>();
+        for (Recipe r : recipesList) {
             List<Ingredient> ingredientTempList = r.getIngredients();
-            for(int i =0; i<ingredientTempList.size();i++){
-                if (ingredientTempList.get(i).getIngredientType()==IngredientType.MEAT){
+            for (int i = 0; i < ingredientTempList.size(); i++) {
+                if (ingredientTempList.get(i).getIngredientType() == IngredientType.MEAT) {
                     break;
-                }
-                else{
-                    if (i==ingredientTempList.size()-1){
+                } else {
+                    if (i == ingredientTempList.size() - 1) {
                         recipesReturnList.add(r);
                     }
                 }
@@ -63,16 +66,15 @@ public class RecipeService {
     }
 
     public List<Recipe> getNonDairyRecipes() {
-        List<Recipe> recipesList =  getAllRecipes();
-        ArrayList<Recipe> recipesReturnList= new ArrayList<Recipe>();
-        for(Recipe r : recipesList){
+        List<Recipe> recipesList = getAllRecipes();
+        ArrayList<Recipe> recipesReturnList = new ArrayList<Recipe>();
+        for (Recipe r : recipesList) {
             List<Ingredient> ingredientTempList = r.getIngredients();
-            for(int i =0; i<ingredientTempList.size();i++){
-                if (ingredientTempList.get(i).getIngredientType()==IngredientType.DAIRY){
+            for (int i = 0; i < ingredientTempList.size(); i++) {
+                if (ingredientTempList.get(i).getIngredientType() == IngredientType.DAIRY) {
                     break;
-                }
-                else{
-                    if (i==ingredientTempList.size()-1){
+                } else {
+                    if (i == ingredientTempList.size() - 1) {
                         recipesReturnList.add(r);
                     }
                 }

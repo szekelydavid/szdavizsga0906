@@ -25,13 +25,14 @@ public class RecipeController {
 
     @PostMapping
     public Recipe addRecipe(@RequestBody Recipe recipe) {
-        return recipeService.addOrUpdateRecipe(recipe);
+        return recipeService.addRecipe(recipe);
     }
 
     @PutMapping
     public Recipe updateRecipe(@RequestBody Recipe recipe) {
-        return recipeService.addOrUpdateRecipe(recipe);
+        return recipeService.updateRecipe(recipe);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteRecipeById(@PathVariable Long id) {
@@ -39,14 +40,14 @@ public class RecipeController {
     }
 
     @GetMapping("/vegetarian")
-    public List<Recipe> getVegetarianRecipes(){
+    public List<Recipe> getVegetarianRecipes() {
         return recipeService.getVegetarianRecipes();
     }
 
     @GetMapping("/non-dairy")
-    public List<Recipe> getNonDairyRecipes(){
+    public List<Recipe> getNonDairyRecipes() {
         return recipeService.getNonDairyRecipes();
     }
 
-    }
+}
 

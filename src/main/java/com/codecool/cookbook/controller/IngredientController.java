@@ -13,7 +13,7 @@ public class IngredientController {
 
     @PostMapping
     public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
-        return ingredientService.addOrUpdateIngredient(ingredient);
+        return ingredientService.addIngredient(ingredient);
     }
 
     @Autowired
@@ -31,11 +31,10 @@ public class IngredientController {
 
     @PutMapping
     public Ingredient updateIngredient(@RequestBody Ingredient ingredient) {
-        return ingredientService.addOrUpdateIngredient(ingredient);
+        return ingredientService.updateIngredient(ingredient);
     }
     @DeleteMapping("/{id}")
     public void deleteAuthor(@PathVariable Long id) {
         ingredientService.deleteIngredientById(id);
     }
-
 }
